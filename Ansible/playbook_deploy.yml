@@ -1,0 +1,11 @@
+---
+
+  - name: EC2-Wordpress
+    hosts: [EC2-Instance]
+    become: true
+
+    roles:
+      - nginx
+      - database
+      - wordpress
+      - openssl

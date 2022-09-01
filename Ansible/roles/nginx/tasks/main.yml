@@ -1,0 +1,29 @@
+---
+
+  - name: Install Nginx & PHP
+    shell: "{{ install_nginx_php }}"
+
+  - name: Copy Config Files
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      follow: yes
+    with_items:
+      - { src: "{{ source_blog_conf }}", dest: "{{ destiny_blog_conf }}" } #blog.conf file
+      - { src: "{{ source_www_conf }}", dest: "{{ destiny_www_conf }}" } #www.conf file
+      - { src: "{{ source_nginx_conf }}", dest: "{{ destiny_nginx_conf }}" } #nginx.conf file
+
+
+
+  - name: Remove index.html
+    ansible.builtin.file:
+      path: "{{ source_remove_indexhtml }}"
+      state: absent
+
+  - name: Enable PHP-FPM Service
+    ansible.builtin.systemd:
+      name: php-fpm.service
+      enabled: true
+    notify: 
+      - Restart Nginx Service
+      - Restart PHP Service

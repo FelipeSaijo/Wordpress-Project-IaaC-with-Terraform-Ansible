@@ -1,0 +1,6 @@
+---
+
+  - name: Install Database
+    ansible.builtin.yum:
+      name: "{{ install_DB }}"
+      state: present

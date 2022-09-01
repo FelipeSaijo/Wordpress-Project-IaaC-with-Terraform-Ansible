@@ -1,0 +1,15 @@
+---
+## Amazon Installation ##
+install_nginx_php: amazon-linux-extras install -y nginx1 php7.4
+
+## Path Directories ##
+source_blog_conf: ../templates/blog.conf.j2
+destiny_blog_conf: /etc/nginx/conf.d/blog.conf
+
+source_remove_indexhtml: /var/www/html/blog/index.html
+
+source_www_conf: ../templates/www.conf.j2
+destiny_www_conf: /etc/php-fpm.d/www.conf
+
+source_nginx_conf: ../templates/nginx.conf.j2
+destiny_nginx_conf: /etc/nginx/nginx.conf

@@ -1,0 +1,13 @@
+---
+
+- name: Restart Nginx Service
+  ansible.builtin.systemd:
+    name: nginx.service
+    state: restarted
+    daemon_reload: yes
+
+- name: Restart PHP Service
+  ansible.builtin.systemd:
+    name: php-fpm.service
+    state: restarted
+    daemon_reload: yes

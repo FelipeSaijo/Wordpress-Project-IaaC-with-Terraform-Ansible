@@ -1,0 +1,29 @@
+---
+
+  - name: Create a directory for Wordpress
+    ansible.builtin.file:
+      path: "{{ path_wordpress }}"
+      state: directory
+
+  - name: Download and Unarchive Wordpress
+    ansible.builtin.unarchive:
+      src: "{{ link_wordpress }}"
+      dest: /tmp/
+      remote_src: yes
+
+  - name: Copy Files wordpress
+    shell: mv /tmp/wordpress/* /var/www/html/blog/
+
+  - name: Copy wp-config.php file
+    ansible.builtin.copy:
+      src: "{{ source_wpconfig }}"
+      dest: "{{ path_wordpress }}/wp-config.php"
+      follow: yes
+
+  - name: Change Owner & Group Nginx
+    ansible.builtin.file:
+      path: "{{ path_wordpress }}"
+      state: directory
+      recurse: yes
+      owner: nginx
+      group: nginx

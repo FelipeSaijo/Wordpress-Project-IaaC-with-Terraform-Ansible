@@ -1,0 +1,17 @@
+---
+## Path ssls Files ##
+path_ssl: /etc/nginx/ssls
+
+## Config OpenSSL Certificate Signing Request ##
+key_size: 4096
+key_type: RSA
+country_name: 
+state_or_province_name: 
+email_address: 
+organization_name: 
+organizational_unit_name: 
+common_name: 
+
+## SSl Path File ##
+scr_blogssl: ../templates/blog-ssl.conf.j2
+dest_blogssl: /etc/nginx/conf.d/blog-ssl.conf

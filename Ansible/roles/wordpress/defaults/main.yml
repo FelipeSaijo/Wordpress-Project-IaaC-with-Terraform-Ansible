@@ -1,0 +1,10 @@
+---
+## Link Wordpress for download ##
+link_wordpress: https://wordpress.org/latest.tar.gz
+
+## Path Directories ##
+source_wordpress_zip: /tmp/wordpress-6.0.1-pt_BR.tar.gz
+source_download_wordpress: /tmp/wordpress
+path_wordpress: /var/www/html/blog
+
+source_wpconfig: ../templates/wp-config.php.j2

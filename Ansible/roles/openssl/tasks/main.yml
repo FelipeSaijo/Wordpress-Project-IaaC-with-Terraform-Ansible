@@ -1,0 +1,39 @@
+---
+
+  - name: Create a directory for SSL Files
+    ansible.builtin.file:
+      path: "{{ path_ssl }}"
+      state: directory
+
+  - name: Generate an OpenSSL private key with the default values (4096 bits, RSA)
+    openssl_privatekey:
+      path: "{{ path_ssl }}/private.pem"
+
+  - name: Generate an OpenSSL Certificate Signing Request with Subject information
+    openssl_csr:
+      path: "{{ path_ssl }}/certificate_gen.csr"
+      privatekey_path: "{{ path_ssl }}/private.pem"
+      country_name: "{{ country_name }}"
+      state_or_province_name: "{{ state_or_province_name }}"
+      organization_name: "{{ organization_name }}"
+      organizational_unit_name: "{{ organizational_unit_name }}"
+      email_address: "{{ email_address }}"
+      common_name: "{{ common_name }}"
+
+  - name: Generate a Self Signed OpenSSL certificate
+    openssl_certificate:
+      path: "{{ path_ssl }}/certificate.crt"
+      privatekey_path: "{{ path_ssl }}/private.pem"
+      csr_path: "{{ path_ssl }}/certificate_gen.csr"
+      provider: selfsigned
+
+  - name: Generate an OpenSSL public key in PEM format
+    openssl_publickey:
+      path: "{{ path_ssl }}/public.pem"
+      privatekey_path: "{{ path_ssl }}/private.pem"
+
+  - name: Copy Config Files
+    copy:
+      src: "{{ scr_blogssl }}"
+      dest: "{{ dest_blogssl }}"
+      follow: yes
